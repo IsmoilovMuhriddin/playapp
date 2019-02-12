@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 aiohttp = "*"
 pyyaml = "*"
+autopep8 = "*"
+pytz = "*"
+jinja2 = "*"
+aiohttp-jinja2 = "*"
 
 [requires]
 python_version = "3.7"

@@ -3,7 +3,6 @@ import os
 import pytz
 import yaml
 from aiohttp import web
-from dateutil.parser import parse
 
 
 
@@ -12,3 +11,4 @@ def load_config(fname):
         data = yaml.load(f)
     
     return data
+

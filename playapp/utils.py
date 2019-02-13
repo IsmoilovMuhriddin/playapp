@@ -24,4 +24,3 @@ async def init_mongo(conf, loop):
     )
     db_name = conf['database']
     return conn[db_name]
-

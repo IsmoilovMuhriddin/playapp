@@ -31,14 +31,14 @@ async def setup_mongo(app, conf, loop):
 
 async def init(loop):
     conf = load_config(PROJ_ROOT / 'config' / 'config.yml')
-    
+
     app = web.Application(loop=loop)
-    mongo = await setup_mongo(app,conf,loop)
+    mongo = await setup_mongo(app, conf, loop)
 
     setup_jinja(app)
 
     # setup view and routes
-    handler = SiteHandler(mongo,conf,loop)
+    handler = SiteHandler(mongo, conf, loop)
     setup_routes(app, handler, PROJ_ROOT)
 
     host, port = conf['host'], conf['port']

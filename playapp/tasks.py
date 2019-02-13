@@ -1,7 +1,7 @@
 
 import asyncio
 import aiohttp
-from .db import insert_app_info
+
 
 async def fetch_page(url, ids, language):
     params = {'id': ids, 'xhr': 1, 'hl': language, 'authuser': 0}

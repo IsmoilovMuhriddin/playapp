@@ -12,6 +12,8 @@ autopep8 = "*"
 pytz = "*"
 jinja2 = "*"
 aiohttp-jinja2 = "*"
+pymongo = "*"
+motor = "*"
 
 [requires]
 python_version = "3.7"

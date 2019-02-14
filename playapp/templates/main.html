@@ -2,15 +2,21 @@
 
 {% block content %}
 <div class="ui container">
-    
-    <div class="ui fluid action input">
-        <input type="text" placeholder="Search...">
-        <div class="ui button">Search</div>
+    <form class="ui form" id="search-form" action="" onsubmit="poll_info(form)">
+        <div class="ui fluid action input">
+            <input type="text" placeholder="Search...">
+            <button class="ui button" type="submit">Submit</button>
+        </div>
+    </form>
+    <button class="ui button" >Fetch</button>
+    <div class="ui container">
+        some data
+        {{ poll_result }}
     </div>
-
+    <div class="ui divider"></div>
     <div class="ui container">
         {{ content }}
-        
+
     </div>
 </div>
 {% endblock %}

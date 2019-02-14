@@ -4,5 +4,6 @@ def setup_routes(app, handler, project_root):
     h = handler
     router.add_get('/', h.mainpage, name='main')
     router.add_get('/history', h.history, name='history')
+    router.add_post('/poll_info',h.poll_info, name='poll_info')
     router.add_static('/static/', path=str(project_root / 'static'),
                       name='static')

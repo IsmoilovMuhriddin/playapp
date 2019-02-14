@@ -1,6 +1,7 @@
-
+from datetime import datetime
 import aiohttp_jinja2
 import aiohttp
+from aiohttp import web
 from .tasks import fetch_page
 import json
 from .db import insert_app_info
@@ -34,3 +35,11 @@ class SiteHandler:
         return {
             'message': 1
         }
+
+    async def poll_info(self, request):
+        data =  {
+            'poll_result': {
+                'time': str(datetime.now())
+            }
+        }
+        return web.json_response(data)

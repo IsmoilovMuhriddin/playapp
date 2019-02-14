@@ -4,5 +4,5 @@ services:
   mongo:
       image: mongo
       ports:
-          - 27017:27017
+          - 2800:27017
       command: [--smallfiles]

@@ -28,9 +28,9 @@ class SiteHandler:
         if body['id']:
             if 'hl' in body.keys():
                 lang = body['hl']
-                result_data = await get_info(
-                    self.base_url, ids=body['id'],
-                    mongo=self.mongo, collection=self.collection,
-                    language=lang)
+            result_data = await get_info(
+                self.base_url, ids=body['id'],
+                mongo=self.mongo, collection=self.collection,
+                language=lang)
 
         return web.json_response(result_data)

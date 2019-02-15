@@ -14,6 +14,8 @@ jinja2 = "*"
 aiohttp-jinja2 = "*"
 pymongo = "*"
 motor = "*"
+flake8 = "*"
+isort = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,8 +1,10 @@
 
-import asyncio
-import aiohttp
 import json
+
+import aiohttp
+
 from .db import get_app_info, insert_app_info
+
 results = []
 
 
@@ -29,7 +31,8 @@ class Parser:
 
 async def fetch_page(url, ids, language):
     params = {'id': ids, 'xhr': 1, 'hl': language, 'authuser': 0}
-    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+    async with aiohttp.ClientSession(
+            connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
         async with session.post(url, params=params) as resp:
 
             return await resp.text()
@@ -50,10 +53,7 @@ async def get_info(url, ids,  mongo, collection, language='en'):
         parser = Parser()
         parser.results = []
         await parser.parsePermissions(data)
-        result = await insert_app_info(mongo, collection, ids, language, parser.results)
+        result = await insert_app_info(
+            mongo, collection,
+            ids, language, parser.results)
         return results
-
-
-async def get_info_json_from_response(resp):
-    data = {}
-    return await data

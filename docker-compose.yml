@@ -9,7 +9,7 @@ services:
     server:
         container_name: playapp
         build: .
-        command: python -m playapp
+        command: make run
         environment:
             - DB_HOST=mongo
         volumes:

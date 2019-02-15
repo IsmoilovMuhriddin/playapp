@@ -1,10 +1,7 @@
 import os
 
-import pytz
-import yaml
-from aiohttp import web
-
 import motor.motor_asyncio as aiomotor
+import yaml
 
 
 def load_config(fname):

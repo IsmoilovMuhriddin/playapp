@@ -20,12 +20,8 @@ class SiteHandler:
 
     @aiohttp_jinja2.template('main.html')
     async def mainpage(self, request):
-        id_line = "jp.naver.line.android"
-        id_tg = "org.telegram.messenger"
-        result_data = await get_info(self.base_url, ids=id_line, language="en", mongo=self.mongo, collection=self.collection)
-        # await insert_app_info(self.mongo, self.collection, data[0][2][0][-1])
         return {
-            'content': result_data
+            'content': 'someText'
         }
 
     @aiohttp_jinja2.template('history.html')
@@ -35,9 +31,17 @@ class SiteHandler:
         }
 
     async def poll_info(self, request):
-        data = {
-            'poll_result': {
-                'time': str(datetime.now())
-            }
-        }
-        return web.json_response(data)
+        body = await request.json()
+        result_data = {}
+        lang='en'
+        #s(body.keys(), request, body['id'])
+        if body['id']:
+            if 'hl' in body.keys():
+                lang = body['hl']
+            
+            result_data = await get_info(
+                self.base_url, ids=body['id'],
+                mongo=self.mongo, collection=self.collection,
+                language=lang)
+
+        return web.json_response(result_data)

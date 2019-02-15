@@ -1,17 +1,52 @@
 
 """ document obj
-{ 
-    ids: "", 
-    permission_sets: [ 
+{
+    ids: "",
+    permission_sets: [
         {
             'lang':'',
             'permissions':[]
-        },   
+        },
     ]
 }
 
 """
-from bson.son import SON
+
+
+
+
+async def get_app_info(mongo, app_collection, app_ids, language):
+    rv =  mongo.app_collection.aggregate(
+        [{
+            '$match':{'ids':app_ids}
+        },
+            {  
+            '$project': {
+                "permission_sets": {
+                    '$filter': {
+                        'input': "$permission_sets",
+                        'as': "perm",
+                        'cond': {
+                            '$eq': ["$$perm.lang", language]
+                        }
+                    }
+                },
+                '_id':0
+            }
+            
+        }]
+
+    )
+
+    
+    async def f(cursor):
+        if cursor is None :
+            return None
+        async for doc in cursor:
+            return doc
+    
+    result = await f(rv)
+    return result if result and len(result['permission_sets'])>0 else None
 
 
 async def insert_app_info(mongo, app_collection, app_ids, language, permissions):
@@ -30,23 +65,4 @@ async def insert_app_info(mongo, app_collection, app_ids, language, permissions)
         upsert=True
     )
 
-    return result['permission_sets']
-
-
-async def get_app_info(mongo, app_collection, app_ids, language):
-    rv = await mongo.app_collection.aggregate([
-        {'$match': {
-            '$and': [
-                {'ids': app_ids}
-
-            ]}},
-        {'$project': {
-            'permissions': {'$filter': {
-                '$input': '$permission_sets',
-                '$as': 'perm',
-                '$cond': {'$eq': ['$$perm.lang', language]}
-            }}
-        }}
-    ])
-
-    return rv if rv else None
+    return await get_app_info(mongo, app_collection, app_ids, language)

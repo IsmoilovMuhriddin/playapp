@@ -15,7 +15,7 @@ def load_config(fname):
 
 
 async def init_mongo(conf, loop):
-    host = os.environ.get('DOCKER_MACHINE_IP', '127.0.0.1')
+    host = os.environ.get('DB_HOST', '127.0.0.1')
     conf['host'] = host
     mongo_uri = f'mongodb://{conf["host"]}:{conf["port"]}'
     conn = aiomotor.AsyncIOMotorClient(

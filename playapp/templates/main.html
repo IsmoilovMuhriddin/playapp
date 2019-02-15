@@ -2,21 +2,33 @@
 
 {% block content %}
 <div class="ui container">
-    <form class="ui form" id="search-form"  onsubmit="poll_info('/poll_info')">
+    <form class="ui form" id="search-form" onsubmit="postData('/poll_info'); return false">
         <div class="ui fluid action input">
-            <input type="text" placeholder="Search...">
+            <input type="text" placeholder="Search..." id="search_field">
             <button class="ui button" type="submit">Submit</button>
         </div>
+        <div class="ui warning message">
+            <div class="header">Could you check something!</div>
+            <ul class="list">
+                <li>Please enter url for the app.</li>
+            </ul>
+        </div>
     </form>
-    <button class="ui button" onclick="postData('/poll_info')" >Fetch</button>
-    <div class="ui container " id="poll_result">
-        some data
-        {{ poll_result }}
+    <div class="ui container ">
+      
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Permission</th>
+                    <th>Definition</th>
+                </tr>
+            </thead>
+            <tbody id="poll_result">
+
+            </tbody>
+        </table>
     </div>
     <div class="ui divider"></div>
-    <div class="ui container">
-        {{ content }}
-
-    </div>
+    
 </div>
 {% endblock %}

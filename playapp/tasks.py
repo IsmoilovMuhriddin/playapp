@@ -35,10 +35,10 @@ async def fetch_page(url, ids, language):
             return await resp.text()
 
 
-async def get_info(url, ids, language, mongo, collection):
+async def get_info(url, ids,  mongo, collection, language='en'):
     # check db if exist
     result = await get_app_info(mongo, collection, ids, language)
-    #print(result)
+    # print(result)
     if result is not None:
 
         return result
@@ -50,8 +50,8 @@ async def get_info(url, ids, language, mongo, collection):
         parser = Parser()
         parser.results = []
         await parser.parsePermissions(data)
-        await insert_app_info(mongo, collection, ids, language, parser.results)
-        return parser.results
+        result = await insert_app_info(mongo, collection, ids, language, parser.results)
+        return results
 
 
 async def get_info_json_from_response(resp):

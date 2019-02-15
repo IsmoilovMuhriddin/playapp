@@ -2,7 +2,7 @@ from datetime import datetime
 import aiohttp_jinja2
 import aiohttp
 from aiohttp import web
-from .tasks import fetch_page
+from .tasks import get_info
 import json
 from .db import insert_app_info
 
@@ -20,14 +20,12 @@ class SiteHandler:
 
     @aiohttp_jinja2.template('main.html')
     async def mainpage(self, request):
-
-        content = await fetch_page(self.base_url, ids="com.facebook.lite", language="en")
-        data = json.loads(content[5:])
-        await insert_app_info(self.mongo, self.collection, data[0][2][0][-1])
-        print(type(data), len(data))
-
+        id_line = "jp.naver.line.android"
+        id_tg = "org.telegram.messenger"
+        result_data = await get_info(self.base_url, ids=id_line, language="en", mongo=self.mongo, collection=self.collection)
+        # await insert_app_info(self.mongo, self.collection, data[0][2][0][-1])
         return {
-            'content': data[0][2][0][-1]
+            'content': result_data
         }
 
     @aiohttp_jinja2.template('history.html')
@@ -37,7 +35,7 @@ class SiteHandler:
         }
 
     async def poll_info(self, request):
-        data =  {
+        data = {
             'poll_result': {
                 'time': str(datetime.now())
             }

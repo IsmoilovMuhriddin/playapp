@@ -17,7 +17,7 @@ make docker_up
 ``` bash
 https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=ru
 ```
-or  whithout langugage
+or  whithout language
 ``` bash
 https://play.google.com/store/apps/details?id=org.telegram.messenger
 ```

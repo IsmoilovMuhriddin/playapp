@@ -1,6 +1,6 @@
 import asyncio
 import pathlib
-
+import os
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
@@ -41,7 +41,7 @@ async def init(loop):
     handler = SiteHandler(mongo, conf, loop)
     setup_routes(app, handler, PROJ_ROOT)
 
-    host, port = conf['host'], conf['port']
+    host, port = conf['host'], os.environ.get('PORT',conf['port'])
     return app, host, port
 
 

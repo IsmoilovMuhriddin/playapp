@@ -15,3 +15,5 @@ WORKDIR /code
 COPY ./Pipfile /code/Pipfile
 COPY . /code/
 RUN pipenv install --system --skip-lock
+
+CMD python -m playapp
